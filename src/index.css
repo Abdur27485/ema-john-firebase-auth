@@ -199,6 +199,8 @@ button:focus-visible {
   font-size: 17px;
   line-height: 20px;
   letter-spacing: 0.005em;
-
   color: #2A414F;
+}
+.errorMessage{
+  color: red !important;
 }
