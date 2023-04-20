@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../Providers/AuthProvider';
 
 const SignUp = () => {
     const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null)
+    const { createUser } = useContext(AuthContext);
 
     const handleSingUp = event => {
         event.preventDefault();
 
         setError(null)
+        setSuccess(null)
 
         const form = event.target;
         const email = form.email.value;
@@ -15,7 +19,6 @@ const SignUp = () => {
         const confirmPassword = form.confirmPassword.value;
 
         if (password === confirmPassword) {
-
             if (!/.{8}/.test(password)) {
                 setError('Password should be at least 8 characters')
                 return;
@@ -29,11 +32,21 @@ const SignUp = () => {
                 setError('Password needs to have at least two numbers')
                 return;
             }
-
         } else {
             setError('Password did not match!')
             return;
         }
+
+        createUser(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+                form.reset();
+                setSuccess('Account Created Successfully!')
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
     }
     return (
         <div>
@@ -59,11 +72,17 @@ const SignUp = () => {
                     </p>
                 </form>
                 {
-                        error ?
-                            <p className='errorMessage'>{error}</p>
-                            :
-                            <></>
-                    }
+                    error ?
+                        <p className='errorMessage'>{error}</p>
+                        :
+                        <></>
+                }
+                {
+                    success ?
+                        <p className='successMessage'>{success}</p>
+                        :
+                        <></>
+                }
                 <div className="or-container">
                     <p>or</p>
                     <hr />

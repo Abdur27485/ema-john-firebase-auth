@@ -202,5 +202,8 @@ button:focus-visible {
   color: #2A414F;
 }
 .errorMessage{
-  color: red !important;
+  color: rgb(208, 56, 56) !important;
+}
+.successMessage{
+  color: rgb(28, 175, 28) !important;
 }
