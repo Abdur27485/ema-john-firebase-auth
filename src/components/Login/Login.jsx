@@ -1,11 +1,16 @@
 import React from 'react';
 import './login.css';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
+
+    const handleLogin = event => {
+        event.preventDefault()
+    }
     return (
         <div className='form-container'>
             <h2 className='form-title'>Login</h2>
-            <form>
+            <form onSubmit={handleLogin}>
                 <div className="form-control">
                     <label>Email</label>
                     <input type="email" name="email" required />
@@ -16,8 +21,8 @@ const Login = () => {
                 </div>
                 <button className='form-btn' type="submit">Login</button>
                 <p>
-                    New o Ema-John?
-                    <a href="#">Create New Account</a>
+                    New to Ema-John?
+                    <Link to='/signup'>Create New Account</Link>
                 </p>
             </form>
             <div className="or-container">
