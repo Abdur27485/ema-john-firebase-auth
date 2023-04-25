@@ -14,15 +14,8 @@ nav.header a{
 .header-links-container{
     display: flex;
     gap: 30px;
+    align-items: center;
 }
-.user-info-nav a{
-    display: flex;
-    gap: 20px;
-}
-.user-info-nav a:nth-child(2){
-    cursor: pointer;
-}
-
 nav.header a:hover{
     color: orange;
 }

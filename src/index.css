@@ -207,3 +207,25 @@ button:focus-visible {
 .successMessage{
   color: rgb(28, 175, 28) !important;
 }
+.user-info-nav{
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.user-info-nav a{
+  background: white;
+  color: #1C2B35 !important;
+  padding: 8px 10px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid white;
+}
+.user-info-nav a:hover{
+  background-color: #1C2B35;
+  color: #FF9900 !important;
+}
+.user-info-nav p{
+  color: white;
+  margin: 0;
+}
