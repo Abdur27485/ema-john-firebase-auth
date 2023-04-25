@@ -33,10 +33,12 @@ const router = createBrowserRouter([
       },
       {
         path: 'inventory',
-        element: <Inventory></Inventory>
+        element: <PrivateRoute>
+          <Inventory></Inventory>
+        </PrivateRoute>
       },
       {
-        path:'checkout',
+        path: 'checkout',
         element: <PrivateRoute>
           <Checkout></Checkout>
         </PrivateRoute>
@@ -56,7 +58,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </AuthProvider>
   </React.StrictMode>,
 )

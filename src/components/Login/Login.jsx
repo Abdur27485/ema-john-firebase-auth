@@ -1,11 +1,16 @@
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useRef, useState } from 'react';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Providers/AuthProvider';
 
 const Login = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
+    const [show, setShow] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null)
-    const {signInUser} = useContext(AuthContext);
+    const { signInUser } = useContext(AuthContext);
+    const passwordRef = useRef(null);
 
     const handleLogin = event => {
         event.preventDefault()
@@ -18,15 +23,16 @@ const Login = () => {
         const password = form.password.value;
 
         signInUser(email, password)
-        .then( result => {
-            const user = result.user;
-            console.log(user)
-            setSuccess('Logged In Successfully!');
-            form.reset();
-        })
-        .catch( error => {
-            console.log(error.message)
-        })
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+                setSuccess('Logged In Successfully!');
+                form.reset();
+                navigate(from, { replace: true })
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
     }
     return (
         <div className='form-container'>
@@ -38,8 +44,15 @@ const Login = () => {
                 </div>
                 <div className="form-control">
                     <label>Password</label>
-                    <input type="password" name="password" required />
+                    <input type={show ? 'text' : 'password'} name="password" ref={passwordRef} required />
                 </div>
+                <p onClick={ () => setShow(!show)}>
+                    <small>
+                        {
+                            show ? 'Hide Password' : 'Show Password'
+                        }
+                    </small>
+                </p>
                 {
                     success ?
                         <p className='successMessage'>{success}</p>
